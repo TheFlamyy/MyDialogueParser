@@ -1,0 +1,23 @@
+{
+	"speaker": "",
+	"message": "This is the first message.",
+	"event": "",
+	"condition": "",
+	"type": "",
+	"_next": [
+		{
+		"speaker": "",
+		"message": "This is the second message",
+		"_next":[
+			{
+			"title": "A",
+			"message": "This is option a."
+			}, 
+			{
+			"title": "B",
+			"message": "This is option b."
+			}
+			]
+		}
+	]
+}

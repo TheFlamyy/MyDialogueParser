@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/my-dialogue-parser/MDP.gd" type="Script" id=1]
+[ext_resource path="res://addons/my-dialogue-parser/Icon.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+onready var mdp := $MyDialogueParser
+onready var text := $Text
+
+func _ready() -> void:
+	# Connects all the signals
+	mdp.connect(\"advanced\", self, \"_mdp_advanced\")
+	mdp.connect(\"started\", self, \"_mdp_started\")
+	mdp.connect(\"finished\", self, \"_mdp_finished\")
+	mdp.connect(\"choices_emitted\", self, \"_mdp_choices_emitted\")
+
+
+func _mdp_started() -> void:
+	# Makes the text field visible
+	text.visible = true
+
+
+func _mdp_finished() -> void:
+	# Hides the text field
+	text.visible = false
+
+
+func _mdp_advanced(dialogue: Dictionary) -> void:
+	# Process the dialogue. Here the text field is set to display the message
+	text.text = dialogue.message
+
+
+func _mdp_choices_emitted(choices: Array) -> void:
+	# Process choices here. e.g. pop-up a menu
+	print(choices)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(\"ui_accept\"):
+		mdp.force_advance()"
+
+[node name="Demo" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )
+
+[node name="MyDialogueParser" type="Node" parent="."]
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_icon": ExtResource( 2 )
+}
+dialogue_path = "res://mdp-demo/Demo.json"
+
+[node name="Text" type="TextEdit" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -181.0
+margin_top = -187.0
+margin_right = 181.0
+readonly = true
