@@ -10,10 +10,13 @@
 		"message": "This is the second message",
 		"_next":[
 			{
+			"_id": "A",
 			"title": "A",
-			"message": "This is option a."
+			"message": "This is option a.",
+			"_next": null
 			}, 
 			{
+			"_id": "B",
 			"title": "B",
 			"message": "This is option b."
 			}

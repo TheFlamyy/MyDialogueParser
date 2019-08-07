@@ -34,7 +34,7 @@ func _mdp_advanced(dialogue: Dictionary) -> void:
 
 func _mdp_choices_emitted(choices: Array) -> void:
 	# Process choices here. e.g. pop-up a menu
-	print(choices)
+	pass
 
 
 func _unhandled_input(event: InputEvent) -> void:

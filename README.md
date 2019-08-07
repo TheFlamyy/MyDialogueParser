@@ -27,7 +27,9 @@ The functionality relies on user calling methods. Here's a list of all exposed f
 | `start` | `void` | `path: Array = []` | Starts the dialogue at the given `path` |
 | `advance` | `void` | `choice: int = 0` | Advances the dialogue with the given choice if choices were available |
 | `end` | `void` | | Pre-emptively exits the dialogue |
-
+| `display` | `void` | | Emits the current dialogue. If choices are detected those will be emitted as well |
+| `jump_to` | `void` | `id: String` | Finds and changes the current dialogue based on the `id` (Don't have the string start with `@` when calling the method directly) |
+| `go_to` | `void` | `path: Array, relative: Dictionary = dialogue` | Starts at `relative` and loops through the path to determine the new current dialogue|
 ----
 
 ### File structure
@@ -41,7 +43,10 @@ The code relevant fields are listed below:
 
 | Field | Type | Description |
 | ---- | ---- | ---- |
-| `_next` | `Array` or `Dictionary` | Determines what the next dialogue will be. If an `Array` (with a size bigger than 1) is used, choices will be assumed |
+| `_next` | `Dictionary` | The next dialogue in the sequence |
+| `_next` | `Array` | If the size is bigger than 1 a choice signal will be emitted otherwise the first element will be chosen as the next dialogue |
+| `_next` | `String` | Can be either used as `go_to` (List of indices e.g. `0/1/0/3`) or as `jump_to` (`@_id_`) |
+| `_id` | `String` | The unique identifier used for `jump_to` to find this dialogue |
 
 ----
 
@@ -49,5 +54,5 @@ The code relevant fields are listed below:
 
 Since this is a personal project the following roadmap is subject to change and might not be fulfilled.
 
-- [ ] Conditional dialogue
-- [ ] `jump_to` in order to jump to a specific `path` in the dialogue (function/`_next`)
+- [ ] _Conditional dialogue_ Should be up to the developer. Maybe include a demo with conditions
+- [x] `jump_to` in order to jump to a specific `path` in the dialogue (function/`_next`)
